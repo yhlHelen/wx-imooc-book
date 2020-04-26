@@ -12,6 +12,11 @@ module.exports = {
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'indent': 'off',
+    'space-before-function-paren': 'off',
+    'spaced-comment': 'off',
+    'object-curly-spacing': 'off',
+    'quote-props': 'off'
   }
 }
