@@ -5,10 +5,12 @@
 </template>
 
 <script>
+  import {ebookMixin} from '../../../../vue-imooc-ebook/src/utils/mixin'
   import Epub from 'epubjs'
   global.ePub = Epub
   export default {
     name: 'EbookReader',
+    mixins: [ebookMixin],
     methods: {
       prevPage() {
         if (this.rendition) {
@@ -21,7 +23,7 @@
         }
       },
       initEpub() {
-        const url = 'http://192.168.15.115:9001/epub/History/2017_Book_InterdisciplinaryPerspectivesO.epub'
+        const url = 'http://192.168.15.115:9001/epub/' + this.kindName + '/' + this.fileName + '.epub'
         this.book = new Epub(url)
         this.rendition = this.book.renderTo('read', {
           width: window.innerWidth,
@@ -49,7 +51,10 @@
       }
     },
     mounted() {
-      this.initEpub()
+      this.setKindName(this.$route.params.kindName)
+      this.setFileName(this.$route.params.fileName).then(() => {
+        this.initEpub()
+      })
     }
   }
 </script>

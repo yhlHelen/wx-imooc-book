@@ -1,14 +1,23 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Ebook from '../views/ebook/index'
+// import Ebook from '../views/ebook/index'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Ebook',
-    component: Ebook
+    redirect: '/ebook'
+  },
+  {
+    path: '/ebook',
+    component: resolve => require(['@/views/ebook/index.vue'], resolve),
+    children: [
+      {
+        path: ':kindName/:fileName',
+        component: resolve => require(['@/components/ebook/EbookReader.vue'], resolve)
+      }
+    ]
   }
 ]
 
