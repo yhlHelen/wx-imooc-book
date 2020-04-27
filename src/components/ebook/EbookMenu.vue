@@ -17,12 +17,14 @@
       </div>
     </transition>
     <ebook-setting-font></ebook-setting-font>
+    <ebook-setting-font-popup></ebook-setting-font-popup>
   </div>
 </template>
 
 <script>
   import { ebookMixin } from '../../../../vue-imooc-ebook/src/utils/mixin'
   import EbookSettingFont from './EbookSettingFont'
+  import EbookSettingFontPopup from './EbookSettingFontPopup'
 
   export default {
     name: 'EbookMenu',
@@ -33,7 +35,8 @@
       }
     },
     components: {
-      EbookSettingFont
+      EbookSettingFont,
+      EbookSettingFontPopup
     }
   }
 </script>

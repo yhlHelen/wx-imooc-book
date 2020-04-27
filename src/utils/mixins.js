@@ -8,7 +8,9 @@ const ebookMixin = {
       'menuVisible',
       'defaultFontSize',
       'settingVisible',
-      'currentBook'
+      'currentBook',
+      'defaultFontFamily',
+      'fontFamilyVisible'
     ])
   },
   methods: {
@@ -18,7 +20,9 @@ const ebookMixin = {
       'setMenuVisible',
       'setDefaultFontSize',
       'setSettingVisible',
-      'setCurrentBook'
+      'setCurrentBook',
+      'setDefaultFontFamily',
+      'setFontFamilyVisible'
     ]),
   }
 }

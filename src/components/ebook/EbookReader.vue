@@ -18,6 +18,7 @@
         }
         this.setMenuVisible(false)
         this.setSettingVisible(-1)
+        this.setFontFamilyVisible(false)
       },
       nextPage() {
         if (this.rendition) {
@@ -25,6 +26,7 @@
         }
         this.setMenuVisible(false)
         this.setSettingVisible(-1)
+        this.setFontFamilyVisible(false)
       },
       initEpub() {
         const url = 'http://192.168.15.115:9001/epub/' + this.kindName + '/' + this.fileName + '.epub'
@@ -53,10 +55,20 @@
           event.preventDefault()
           event.stopPropagation()
         })
+
+        this.rendition.hooks.content.register(contents => {
+          Promise.all([
+            contents.addStylesheet('http://192.168.15.115:9001/fonts/daysOne.css'),
+            contents.addStylesheet('http://192.168.15.115:9001/fonts/cabin.css'),
+            contents.addStylesheet('http://192.168.15.115:9001/fonts/montserrat.css'),
+            contents.addStylesheet('http://192.168.15.115:9001/fonts/tangerine.css')
+          ]).then(() => {})
+        })
       },
       toggleTitleAndMenu() {
         this.setMenuVisible(!this.menuVisible)
         this.setSettingVisible(-1)
+        this.setFontFamilyVisible(false)
       }
     },
     mounted() {

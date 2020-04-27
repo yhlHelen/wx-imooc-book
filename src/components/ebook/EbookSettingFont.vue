@@ -16,6 +16,15 @@
         </div>
         <div class="preview" :style="{fontSize: fontSize[fontSize.length - 1].fontSize + 'px'}">A</div>
       </div>
+      <div class="setting-font-family" @click="showFontFamily">
+        <div class="setting-font-family-text-wrapper">
+          <div class="setting-font-family-text">{{defaultFontFamily}}</div>
+        </div>
+
+        <div class="setting-font-family-icon-wrapper">
+          <span class="icon-forward icon"></span>
+        </div>
+      </div>
     </div>
   </transition>
 </template>
@@ -36,6 +45,9 @@
       setFontSize(fontSize) {
         this.setDefaultFontSize(fontSize)
         this.currentBook.rendition.themes.fontSize(fontSize)
+      },
+      showFontFamily() {
+        this.setFontFamilyVisible(true)
       }
     }
   }
@@ -113,6 +125,23 @@
               }
             }
           }
+        }
+      }
+    }
+    .setting-font-family {
+      flex: 1;
+      font-size: px2rem(14);
+      @include center;
+      .setting-font-family-text-wrapper {
+        @include center;
+        .setting-font-family-text {
+
+        }
+      }
+      .setting-font-family-icon-wrapper {
+        @include center;
+        .icon-forward {
+          font-size: px2rem(14);
         }
       }
     }

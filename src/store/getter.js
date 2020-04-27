@@ -4,7 +4,9 @@ const getters = {
   menuVisible: state => state.book.menuVisible,
   defaultFontSize: state => state.book.defaultFontSize,
   settingVisible: state => state.book.settingVisible,
-  currentBook: state => state.book.currentBook
+  currentBook: state => state.book.currentBook,
+  defaultFontFamily: state => state.book.defaultFontFamily,
+  fontFamilyVisible: state => state.book.fontFamilyVisible
 }
 
 export default getters
