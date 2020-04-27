@@ -16,21 +16,20 @@
         if (this.rendition) {
           this.rendition.prev()
         }
-        if (this.menuVisible) {
-          this.toggleTitleAndMenu()
-        }
+        this.setMenuVisible(false)
+        this.setSettingVisible(-1)
       },
       nextPage() {
         if (this.rendition) {
           this.rendition.next()
         }
-        if (this.menuVisible) {
-          this.toggleTitleAndMenu()
-        }
+        this.setMenuVisible(false)
+        this.setSettingVisible(-1)
       },
       initEpub() {
         const url = 'http://192.168.15.115:9001/epub/' + this.kindName + '/' + this.fileName + '.epub'
         this.book = new Epub(url)
+        this.setCurrentBook(this.book)
         this.rendition = this.book.renderTo('read', {
           width: window.innerWidth,
           height: window.innerHeight,
@@ -57,6 +56,7 @@
       },
       toggleTitleAndMenu() {
         this.setMenuVisible(!this.menuVisible)
+        this.setSettingVisible(-1)
       }
     },
     mounted() {

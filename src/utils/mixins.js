@@ -5,14 +5,20 @@ const ebookMixin = {
     ...mapGetters([
       'kindName',
       'fileName',
-      'menuVisible'
+      'menuVisible',
+      'defaultFontSize',
+      'settingVisible',
+      'currentBook'
     ])
   },
   methods: {
     ...mapActions([
       'setKindName',
       'setFileName',
-      'setMenuVisible'
+      'setMenuVisible',
+      'setDefaultFontSize',
+      'setSettingVisible',
+      'setCurrentBook'
     ]),
   }
 }

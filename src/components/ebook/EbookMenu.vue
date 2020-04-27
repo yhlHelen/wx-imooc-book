@@ -1,7 +1,7 @@
 <template>
   <div class="menu-bar">
     <transition name="slide-up">
-      <div class="menu-wrapper" v-show="menuVisible">
+      <div class="menu-wrapper" :class="{'hide-box-shadow': !menuVisible || settingVisible > -1}" v-show="menuVisible">
         <div class="icon-wrapper">
           <span class="icon-menu icon"></span>
         </div>
@@ -11,7 +11,7 @@
         <div class="icon-wrapper">
           <span class="icon-bright icon"></span>
         </div>
-        <div class="icon-wrapper">
+        <div class="icon-wrapper" @click="showSetting(0)">
           <span class="icon-a icon">A</span>
         </div>
       </div>
@@ -27,6 +27,11 @@
   export default {
     name: 'EbookMenu',
     mixins: [ebookMixin],
+    methods: {
+      showSetting(index) {
+        this.setSettingVisible(index)
+      }
+    },
     components: {
       EbookSettingFont
     }
@@ -46,6 +51,9 @@
       background-color: white;
       display: flex;
       box-shadow: 0 px2rem(-8) px2rem(8) rgba(0,0,0,0.15);
+      &.hide-box-shadow{
+        box-shadow: none;
+      }
       .icon-wrapper {
         flex: 1;
         @include center;

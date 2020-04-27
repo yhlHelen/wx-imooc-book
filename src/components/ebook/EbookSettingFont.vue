@@ -1,26 +1,43 @@
 <template>
-  <div class="setting-wrapper">
-    <div class="setting-font-size">
-      <div class="preview">A</div>
-      <div class="select">
-        <div class="select-wrapper">
-          <div class="line"></div>
-          <div class="point-wrapper">
-            <div class="point">
-              <div class="small-point"></div>
+  <transition name="slide-up">
+    <div class="setting-wrapper" v-show="menuVisible && settingVisible === 0">
+      <div class="setting-font-size">
+        <div class="preview" :style="{fontSize: fontSize[0].fontSize + 'px'}">A</div>
+        <div class="select">
+          <div class="select-wrapper" @click="setFontSize(item.fontSize)" v-for="(item, index) in fontSize" :key="index">
+            <div class="line"></div>
+            <div class="point-wrapper">
+              <div class="point" v-show=" defaultFontSize === item.fontSize ">
+                <div class="small-point"></div>
+              </div>
             </div>
+            <div class="line"></div>
           </div>
-          <div class="line"></div>
         </div>
+        <div class="preview" :style="{fontSize: fontSize[fontSize.length - 1].fontSize + 'px'}">A</div>
       </div>
-      <div class="preview">A</div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
+  import { FONT_SIZE_LIST } from '../../utils/book'
+  import { ebookMixin } from '../../../../vue-imooc-ebook/src/utils/mixin'
+
   export default {
-    name: 'EbookSettingFont'
+    name: 'EbookSettingFont',
+    data() {
+      return {
+        fontSize: FONT_SIZE_LIST
+      }
+    },
+    mixins: [ebookMixin],
+    methods: {
+      setFontSize(fontSize) {
+        this.setDefaultFontSize(fontSize)
+        this.currentBook.rendition.themes.fontSize(fontSize)
+      }
+    }
   }
 </script>
 
@@ -35,7 +52,7 @@
     z-index: 99;
     display: flex;
     flex-direction: column;
-    background: yellow;
+    background: white;
     box-shadow: 0 px2rem(-8) px2rem(8) rgba(0, 0, 0, 0.15);
     .setting-font-size{
       flex: 2;
