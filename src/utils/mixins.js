@@ -4,13 +4,15 @@ const ebookMixin = {
   computed: {
     ...mapGetters([
       'kindName',
-      'fileName'
+      'fileName',
+      'menuVisible'
     ])
   },
   methods: {
     ...mapActions([
       'setKindName',
-      'setFileName'
+      'setFileName',
+      'setMenuVisible'
     ]),
   }
 }

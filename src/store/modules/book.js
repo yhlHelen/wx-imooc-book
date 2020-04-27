@@ -1,7 +1,8 @@
 const book = {
   state: {
     kindName: '',
-    fileName: ''
+    fileName: '',
+    menuVisible: false
   },
   mutations: {
     'SET_KINDNAME': (state, kindName) => {
@@ -9,6 +10,9 @@ const book = {
     },
     'SET_FILENAME': (state, fileName) => {
       state.fileName = fileName
+    },
+    'SET_MENU_VISIBLE': (state, menuVisible) => {
+      state.menuVisible = menuVisible
     }
   }
 }

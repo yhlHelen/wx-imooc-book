@@ -16,10 +16,16 @@
         if (this.rendition) {
           this.rendition.prev()
         }
+        if (this.menuVisible) {
+          this.toggleTitleAndMenu()
+        }
       },
       nextPage() {
         if (this.rendition) {
           this.rendition.next()
+        }
+        if (this.menuVisible) {
+          this.toggleTitleAndMenu()
         }
       },
       initEpub() {
@@ -43,11 +49,14 @@
           } else if (time < 500 && offsetX < -40) {
             this.nextPage()
           } else {
-            console.log('124')
+            this.toggleTitleAndMenu()
           }
           event.preventDefault()
           event.stopPropagation()
         })
+      },
+      toggleTitleAndMenu() {
+        this.setMenuVisible(!this.menuVisible)
       }
     },
     mounted() {
