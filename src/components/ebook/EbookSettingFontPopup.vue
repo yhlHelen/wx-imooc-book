@@ -5,7 +5,7 @@
         <div class="ebook-popup-title-icon" @click="hide">
           <span class="icon-down2 icon"></span>
         </div>
-        <div class="ebook-popup-title-text">选择字体</div>
+        <div class="ebook-popup-title-text">{{$t('book.selectFont')}}</div>
       </div>
       <div class="ebook-popup-list-wrapper">
         <div class="ebook-popup-item" @click="setFontFamily(item.font)" v-for="(item, index) in fontFamily" :key="index">
@@ -22,6 +22,7 @@
 <script>
   import {ebookMixin} from '../../../../vue-imooc-ebook/src/utils/mixin'
   import { FONT_FAMILY } from '../../utils/book'
+  import { saveFontFamily } from '../../utils/localStorage'
 
   export default {
     name: 'EbookSettingFontPopup',
@@ -34,6 +35,7 @@
     methods: {
       setFontFamily(font) {
         this.setDefaultFontFamily(font)
+        saveFontFamily(this.kindName, this.fileName, font)
         if (this.defaultFontFamily === 'Default') {
           this.currentBook.rendition.themes.font('Times New Roman')
         } else {

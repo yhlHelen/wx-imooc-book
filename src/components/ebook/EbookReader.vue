@@ -6,6 +6,12 @@
 
 <script>
   import {ebookMixin} from '../../../../vue-imooc-ebook/src/utils/mixin'
+  import {
+    getFontSize,
+    saveFontSize,
+    getFontFamily,
+    saveFontFamily
+  } from '../../utils/localStorage'
   import Epub from 'epubjs'
   global.ePub = Epub
   export default {
@@ -28,8 +34,27 @@
         this.setSettingVisible(-1)
         this.setFontFamilyVisible(false)
       },
+      initFontSize() {
+        const fontSize = getFontSize(this.kindName, this.fileName)
+        if (!fontSize) {
+          saveFontSize(this.kindName, this.fileName, this.defaultFontSize)
+        } else {
+          this.rendition.themes.fontSize(fontSize)
+          this.setDefaultFontSize(fontSize)
+        }
+      },
+      initFontFamily() {
+        const fontFamily = getFontFamily(this.kindName, this.fileName)
+        if (!fontFamily) {
+          saveFontFamily(this.kindName, this.fileName, this.defaultFontFamily)
+        } else {
+          this.rendition.themes.font(fontFamily)
+          this.setDefaultFontFamily(fontFamily)
+        }
+      },
       initEpub() {
-        const url = 'http://192.168.15.115:9001/epub/' + this.kindName + '/' + this.fileName + '.epub'
+        const url = process.env.VUE_APP_RES_URL + '/epub/' + this.kindName + '/' + this.fileName + '.epub'
+        console.log(url)
         this.book = new Epub(url)
         this.setCurrentBook(this.book)
         this.rendition = this.book.renderTo('read', {
@@ -37,7 +62,10 @@
           height: window.innerHeight,
           method: 'default'
         })
-        this.rendition.display()
+        this.rendition.display().then(() => {
+          this.initFontSize()
+          this.initFontFamily()
+        })
         this.rendition.on('touchstart', event => {
           this.touchStartX = event.changedTouches[0].clientX
           this.touchStartTime = event.timeStamp
@@ -58,10 +86,10 @@
 
         this.rendition.hooks.content.register(contents => {
           Promise.all([
-            contents.addStylesheet('http://192.168.15.115:9001/fonts/daysOne.css'),
-            contents.addStylesheet('http://192.168.15.115:9001/fonts/cabin.css'),
-            contents.addStylesheet('http://192.168.15.115:9001/fonts/montserrat.css'),
-            contents.addStylesheet('http://192.168.15.115:9001/fonts/tangerine.css')
+            contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/daysOne.css`),
+            contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/cabin.css`),
+            contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/montserrat.css`),
+            contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/tangerine.css`)
           ]).then(() => {})
         })
       },
